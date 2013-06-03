@@ -1,0 +1,9 @@
+fileFormatVersion: 2
+guid: 6e83400547d5be049a44aae9c9c45f6c
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - cropTileClass: {fileID: 11400000, guid: 05c2496ebe1db4d4c94efc3806757ea8, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
