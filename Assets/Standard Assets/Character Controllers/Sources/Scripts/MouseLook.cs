@@ -16,7 +16,13 @@ using System.Collections;
 ///   -> Set the mouse look to use LookY. (You want the camera to tilt up and down like a head. The character already turns.)
 [AddComponentMenu("Camera-Control/Mouse Look")]
 public class MouseLook : MonoBehaviour {
-
+	//my code
+	public bool pausecamera = false;
+	
+	
+	
+	
+	//end code
 	public enum RotationAxes { MouseXAndY = 0, MouseX = 1, MouseY = 2 }
 	public RotationAxes axes = RotationAxes.MouseXAndY;
 	public float sensitivityX = 15F;
@@ -31,7 +37,7 @@ public class MouseLook : MonoBehaviour {
 	float rotationY = 0F;
 
 	void Update ()
-	{
+	{ if(pausecamera == false) { //mycode
 		if (axes == RotationAxes.MouseXAndY)
 		{
 			float rotationX = transform.localEulerAngles.y + Input.GetAxis("Mouse X") * sensitivityX;
@@ -53,6 +59,7 @@ public class MouseLook : MonoBehaviour {
 			transform.localEulerAngles = new Vector3(-rotationY, transform.localEulerAngles.y, 0);
 		}
 	}
+	} //my code
 	
 	void Start ()
 	{

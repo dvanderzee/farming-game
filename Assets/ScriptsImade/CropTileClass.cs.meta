@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 5b695c086342b0945818ba3cbce7cea7
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - dirtMesh: {fileID: 4300000, guid: f2f23537fdf3cd942941970b47652e91, type: 3}
+  - dirtAvatar: {fileID: 9000000, guid: f2f23537fdf3cd942941970b47652e91, type: 3}
+  - tilledMesh: {fileID: 4300000, guid: c8510e36b00b91846b4727ea01f49c43, type: 3}
+  - tilledAvatar: {fileID: 9000000, guid: c8510e36b00b91846b4727ea01f49c43, type: 3}
+  - wetdirtMesh: {fileID: 4300000, guid: 2dacf0f26ff8b3b458db2c3744d2482c, type: 3}
+  - wetdirtavatar: {fileID: 9000000, guid: 2dacf0f26ff8b3b458db2c3744d2482c, type: 3}
+  - wettilled: {fileID: 4300000, guid: e6ac869c4cdd3f745ae782c2baf20d61, type: 3}
+  - wettilledavatar: {fileID: 9000000, guid: e6ac869c4cdd3f745ae782c2baf20d61, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 

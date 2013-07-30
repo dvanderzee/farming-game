@@ -1,0 +1,960 @@
+<root>
+  <version major="2" minor="1"/>
+  <metasl_code intrinsic_nodes="true"/>
+  <metasl_code file_name="conversion.msl"/>
+  <metasl_code file_name="hlsl_Bitmap_EvalColor.msl"/>
+  <metasl_code file_name="hlsl_base_UVGenerator.msl"/>
+  <metasl_code file_name="max_StandardBlinnMaterial.msl"/>
+
+  <phenomenon name="max_StandardBlinnMaterial_Phen">
+    <input name="Parameters_Ambient" type="Color" display_name="Parameters_Ambient" value="0.588235 0.588235 0.588235 1">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="Parameters_Ambient"/>
+      </annotation>
+    </input>
+    <input name="Parameters_Diffuse" type="Color" display_name="Parameters_Diffuse" value="0.588235 0.588235 0.588235 1">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="Parameters_Diffuse"/>
+      </annotation>
+    </input>
+    <input name="Parameters_Specular" type="Color" display_name="Parameters_Specular" value="0.9 0.9 0.9 1">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="Parameters_Specular"/>
+      </annotation>
+    </input>
+    <input name="Parameters_ADLock" type="const bool" display_name="Parameters_ADLock" value="true">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="Parameters_ADLock"/>
+      </annotation>
+    </input>
+    <input name="Parameters_DSLock" type="const bool" display_name="Parameters_DSLock" value="false">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="Parameters_DSLock"/>
+      </annotation>
+    </input>
+    <input name="Parameters_UseSelfIllumColor" type="const bool" display_name="Parameters_UseSelfIllumColor" value="false">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="Parameters_UseSelfIllumColor"/>
+      </annotation>
+    </input>
+    <input name="Parameters_SelfIllumAmount" type="float" display_name="Parameters_SelfIllumAmount" value="0">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="Parameters_SelfIllumAmount"/>
+      </annotation>
+    </input>
+    <input name="Parameters_SelfIllumColor" type="Color" display_name="Parameters_SelfIllumColor" value="0 0 0 0">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="Parameters_SelfIllumColor"/>
+      </annotation>
+    </input>
+    <input name="Parameters_SpecularLevel" type="float" display_name="Parameters_SpecularLevel" value="0">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="Parameters_SpecularLevel"/>
+      </annotation>
+    </input>
+    <input name="Parameters_Glossiness" type="float" display_name="Parameters_Glossiness" value="0.1">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="Parameters_Glossiness"/>
+      </annotation>
+    </input>
+    <input name="Parameters_Soften" type="float" display_name="Parameters_Soften" value="0.1">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="Parameters_Soften"/>
+      </annotation>
+    </input>
+    <input name="StdParameters_Wire" type="const bool" display_name="StdParameters_Wire" value="false">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="StdParameters_Wire"/>
+      </annotation>
+    </input>
+    <input name="StdParameters_TwoSided" type="const bool" display_name="StdParameters_TwoSided" value="false">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="StdParameters_TwoSided"/>
+      </annotation>
+    </input>
+    <input name="StdParameters_FaceMap" type="const bool" display_name="StdParameters_FaceMap" value="false">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="StdParameters_FaceMap"/>
+      </annotation>
+    </input>
+    <input name="StdParameters_Faceted" type="const bool" display_name="StdParameters_Faceted" value="false">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="StdParameters_Faceted"/>
+      </annotation>
+    </input>
+    <input name="StdExtendedParameters_OpacityType" type="int" display_name="StdExtendedParameters_OpacityType" value="0">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="StdExtendedParameters_OpacityType"/>
+      </annotation>
+    </input>
+    <input name="StdExtendedParameters_Opacity" type="float" display_name="StdExtendedParameters_Opacity" value="1">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="StdExtendedParameters_Opacity"/>
+      </annotation>
+    </input>
+    <input name="StdExtendedParameters_FilterColor" type="Color" display_name="StdExtendedParameters_FilterColor" value="0.5 0.5 0.5 0.5">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="StdExtendedParameters_FilterColor"/>
+      </annotation>
+    </input>
+    <input name="StdExtendedParameters_FilterMap" type="texture2D" display_name="StdExtendedParameters_FilterMap" value="default.dds">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="StdExtendedParameters_FilterMap"/>
+      </annotation>
+    </input>
+    <input name="StdExtendedParameters_OpacityFallOffType" type="int" display_name="StdExtendedParameters_OpacityFallOffType" value="0">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="StdExtendedParameters_OpacityFallOffType"/>
+      </annotation>
+    </input>
+    <input name="StdExtendedParameters_OpacityFallOff" type="float" display_name="StdExtendedParameters_OpacityFallOff" value="0">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="StdExtendedParameters_OpacityFallOff"/>
+      </annotation>
+    </input>
+    <input name="StdExtendedParameters_Ior" type="float" display_name="StdExtendedParameters_Ior" value="1.5">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="StdExtendedParameters_Ior"/>
+      </annotation>
+    </input>
+    <input name="StdExtendedParameters_WireSize" type="float" display_name="StdExtendedParameters_WireSize" value="1">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="StdExtendedParameters_WireSize"/>
+      </annotation>
+    </input>
+    <input name="StdExtendedParameters_WireUnits" type="int" display_name="StdExtendedParameters_WireUnits" value="0">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="StdExtendedParameters_WireUnits"/>
+      </annotation>
+    </input>
+    <input name="StdExtendedParameters_ApplyReflectionDimming" type="const bool" display_name="StdExtendedParameters_ApplyReflectionDimming" value="false">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="StdExtendedParameters_ApplyReflectionDimming"/>
+      </annotation>
+    </input>
+    <input name="StdExtendedParameters_DimLevel" type="float" display_name="StdExtendedParameters_DimLevel" value="0">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="StdExtendedParameters_DimLevel"/>
+      </annotation>
+    </input>
+    <input name="StdExtendedParameters_ReflectionLevel" type="float" display_name="StdExtendedParameters_ReflectionLevel" value="3">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="StdExtendedParameters_ReflectionLevel"/>
+      </annotation>
+    </input>
+    <input name="StdMaps_On__0" type="const bool" display_name="StdMaps_On__0" value="true">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="StdMaps_On__0"/>
+      </annotation>
+    </input>
+    <input name="StdMaps_Map_0" type="Shader" display_name="StdMaps_Map_0" value="">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="StdMaps_Map_0"/>
+      </annotation>
+    </input>
+    <input name="StdMaps_Amt_0" type="float" display_name="StdMaps_Amt_0" value="0">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="StdMaps_Amt_0"/>
+      </annotation>
+    </input>
+    <input name="StdMaps_On__1" type="const bool" display_name="StdMaps_On__1" value="true">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="StdMaps_On__1"/>
+      </annotation>
+    </input>
+    <input name="StdMaps_Map_1" type="Shader" display_name="StdMaps_Map_1" value="">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="StdMaps_Map_1"/>
+      </annotation>
+    </input>
+    <input name="StdMaps_Amt_1" type="float" display_name="StdMaps_Amt_1" value="0">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="StdMaps_Amt_1"/>
+      </annotation>
+    </input>
+    <input name="StdMaps_On__2" type="const bool" display_name="StdMaps_On__2" value="true">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="StdMaps_On__2"/>
+      </annotation>
+    </input>
+    <input name="StdMaps_Map_2" type="Shader" display_name="StdMaps_Map_2" value="">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="StdMaps_Map_2"/>
+      </annotation>
+    </input>
+    <input name="StdMaps_Amt_2" type="float" display_name="StdMaps_Amt_2" value="0">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="StdMaps_Amt_2"/>
+      </annotation>
+    </input>
+    <input name="StdMaps_On__3" type="const bool" display_name="StdMaps_On__3" value="true">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="StdMaps_On__3"/>
+      </annotation>
+    </input>
+    <input name="StdMaps_Map_3" type="Shader" display_name="StdMaps_Map_3" value="">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="StdMaps_Map_3"/>
+      </annotation>
+    </input>
+    <input name="StdMaps_Amt_3" type="float" display_name="StdMaps_Amt_3" value="0">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="StdMaps_Amt_3"/>
+      </annotation>
+    </input>
+    <input name="StdMaps_On__4" type="const bool" display_name="StdMaps_On__4" value="true">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="StdMaps_On__4"/>
+      </annotation>
+    </input>
+    <input name="StdMaps_Map_4" type="Shader" display_name="StdMaps_Map_4" value="">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="StdMaps_Map_4"/>
+      </annotation>
+    </input>
+    <input name="StdMaps_Amt_4" type="float" display_name="StdMaps_Amt_4" value="0">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="StdMaps_Amt_4"/>
+      </annotation>
+    </input>
+    <input name="StdMaps_On__5" type="const bool" display_name="StdMaps_On__5" value="true">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="StdMaps_On__5"/>
+      </annotation>
+    </input>
+    <input name="StdMaps_Map_5" type="Shader" display_name="StdMaps_Map_5" value="">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="StdMaps_Map_5"/>
+      </annotation>
+    </input>
+    <input name="StdMaps_Amt_5" type="float" display_name="StdMaps_Amt_5" value="0">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="StdMaps_Amt_5"/>
+      </annotation>
+    </input>
+    <input name="StdMaps_On__6" type="const bool" display_name="StdMaps_On__6" value="true">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="StdMaps_On__6"/>
+      </annotation>
+    </input>
+    <input name="StdMaps_Map_6" type="Shader" display_name="StdMaps_Map_6" value="">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="StdMaps_Map_6"/>
+      </annotation>
+    </input>
+    <input name="StdMaps_Amt_6" type="float" display_name="StdMaps_Amt_6" value="0">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="StdMaps_Amt_6"/>
+      </annotation>
+    </input>
+    <input name="StdMaps_On__7" type="const bool" display_name="StdMaps_On__7" value="true">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="StdMaps_On__7"/>
+      </annotation>
+    </input>
+    <input name="StdMaps_Map_7" type="Shader" display_name="StdMaps_Map_7" value="">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="StdMaps_Map_7"/>
+      </annotation>
+    </input>
+    <input name="StdMaps_Amt_7" type="float" display_name="StdMaps_Amt_7" value="0">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="StdMaps_Amt_7"/>
+      </annotation>
+    </input>
+    <input name="StdMaps_On__8" type="const bool" display_name="StdMaps_On__8" value="true">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="StdMaps_On__8"/>
+      </annotation>
+    </input>
+    <input name="StdMaps_Map_8" type="Shader" display_name="StdMaps_Map_8" value="">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="StdMaps_Map_8"/>
+      </annotation>
+    </input>
+    <input name="StdMaps_Amt_8" type="float" display_name="StdMaps_Amt_8" value="0">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="StdMaps_Amt_8"/>
+      </annotation>
+    </input>
+    <input name="StdMaps_On__9" type="const bool" display_name="StdMaps_On__9" value="true">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="StdMaps_On__9"/>
+      </annotation>
+    </input>
+    <input name="StdMaps_Map_9" type="Shader" display_name="StdMaps_Map_9" value="">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="StdMaps_Map_9"/>
+      </annotation>
+    </input>
+    <input name="StdMaps_Amt_9" type="float" display_name="StdMaps_Amt_9" value="0">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="StdMaps_Amt_9"/>
+      </annotation>
+    </input>
+    <input name="StdMaps_On__10" type="const bool" display_name="StdMaps_On__10" value="true">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="StdMaps_On__10"/>
+      </annotation>
+    </input>
+    <input name="StdMaps_Map_10" type="Shader" display_name="StdMaps_Map_10" value="">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="StdMaps_Map_10"/>
+      </annotation>
+    </input>
+    <input name="StdMaps_Amt_10" type="float" display_name="StdMaps_Amt_10" value="0">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="StdMaps_Amt_10"/>
+      </annotation>
+    </input>
+    <input name="StdMaps_ADTextureLock" type="const bool" display_name="StdMaps_ADTextureLock" value="true">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="StdMaps_ADTextureLock"/>
+      </annotation>
+    </input>
+    <output name="result" type="Color" display_name="result">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="result"/>
+      </annotation>
+    </output>
+    <output name="transparency" type="float" display_name="transparency">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="transparency"/>
+      </annotation>
+    </output>
+
+    <node name="max_StandardBlinnMaterial_1" class="max_StandardBlinnMaterial">
+      <input name="Parameters_Ambient" value="0.588235 0.588235 0.588235 1">
+        <attachment target_name="Parameters_Ambient"/>
+      </input>
+      <input name="Parameters_Diffuse" value="0.588235 0.588235 0.588235 1">
+        <attachment target_name="Parameters_Diffuse"/>
+      </input>
+      <input name="Parameters_Specular" value="0.9 0.9 0.9 1">
+        <attachment target_name="Parameters_Specular"/>
+      </input>
+      <input name="Parameters_ADLock" value="true">
+        <attachment target_name="Parameters_ADLock"/>
+      </input>
+      <input name="Parameters_DSLock" value="false">
+        <attachment target_name="Parameters_DSLock"/>
+      </input>
+      <input name="Parameters_UseSelfIllumColor" value="false">
+        <attachment target_name="Parameters_UseSelfIllumColor"/>
+      </input>
+      <input name="Parameters_SelfIllumAmount" value="0">
+        <attachment target_name="Parameters_SelfIllumAmount"/>
+      </input>
+      <input name="Parameters_SelfIllumColor" value="0 0 0 0">
+        <attachment target_name="Parameters_SelfIllumColor"/>
+      </input>
+      <input name="Parameters_SpecularLevel" value="0">
+        <attachment target_name="Parameters_SpecularLevel"/>
+      </input>
+      <input name="Parameters_Glossiness" value="0.1">
+        <attachment target_name="Parameters_Glossiness"/>
+      </input>
+      <input name="Parameters_Soften" value="0.1">
+        <attachment target_name="Parameters_Soften"/>
+      </input>
+      <input name="StdParameters_Wire" value="false">
+        <attachment target_name="StdParameters_Wire"/>
+      </input>
+      <input name="StdParameters_TwoSided" value="false">
+        <attachment target_name="StdParameters_TwoSided"/>
+      </input>
+      <input name="StdParameters_FaceMap" value="false">
+        <attachment target_name="StdParameters_FaceMap"/>
+      </input>
+      <input name="StdParameters_Faceted" value="false">
+        <attachment target_name="StdParameters_Faceted"/>
+      </input>
+      <input name="StdExtendedParameters_OpacityType" value="0">
+        <attachment target_name="StdExtendedParameters_OpacityType"/>
+      </input>
+      <input name="StdExtendedParameters_Opacity" value="1">
+        <attachment target_name="StdExtendedParameters_Opacity"/>
+      </input>
+      <input name="StdExtendedParameters_FilterColor" value="0.5 0.5 0.5 0.5">
+        <attachment target_name="StdExtendedParameters_FilterColor"/>
+      </input>
+      <input name="StdExtendedParameters_FilterMap" value="default.dds">
+        <attachment target_name="StdExtendedParameters_FilterMap"/>
+      </input>
+      <input name="StdExtendedParameters_OpacityFallOffType" value="0">
+        <attachment target_name="StdExtendedParameters_OpacityFallOffType"/>
+      </input>
+      <input name="StdExtendedParameters_OpacityFallOff" value="0">
+        <attachment target_name="StdExtendedParameters_OpacityFallOff"/>
+      </input>
+      <input name="StdExtendedParameters_Ior" value="1.5">
+        <attachment target_name="StdExtendedParameters_Ior"/>
+      </input>
+      <input name="StdExtendedParameters_WireSize" value="1">
+        <attachment target_name="StdExtendedParameters_WireSize"/>
+      </input>
+      <input name="StdExtendedParameters_WireUnits" value="0">
+        <attachment target_name="StdExtendedParameters_WireUnits"/>
+      </input>
+      <input name="StdExtendedParameters_ApplyReflectionDimming" value="false">
+        <attachment target_name="StdExtendedParameters_ApplyReflectionDimming"/>
+      </input>
+      <input name="StdExtendedParameters_DimLevel" value="0">
+        <attachment target_name="StdExtendedParameters_DimLevel"/>
+      </input>
+      <input name="StdExtendedParameters_ReflectionLevel" value="3">
+        <attachment target_name="StdExtendedParameters_ReflectionLevel"/>
+      </input>
+      <input name="StdMaps_On__0" value="true">
+        <attachment target_name="StdMaps_On__0"/>
+      </input>
+      <input name="StdMaps_Map_0" value="">
+        <attachment target_name="StdMaps_Map_0" is_reference="true"/>
+      </input>
+      <input name="StdMaps_Amt_0" value="0">
+        <attachment target_name="StdMaps_Amt_0"/>
+      </input>
+      <input name="StdMaps_On__1" value="true">
+        <attachment target_name="StdMaps_On__1"/>
+      </input>
+      <input name="StdMaps_Map_1" value="">
+        <attachment target_name="StdMaps_Map_1" is_reference="true"/>
+      </input>
+      <input name="StdMaps_Amt_1" value="0">
+        <attachment target_name="StdMaps_Amt_1"/>
+      </input>
+      <input name="StdMaps_On__2" value="true">
+        <attachment target_name="StdMaps_On__2"/>
+      </input>
+      <input name="StdMaps_Map_2" value="">
+        <attachment target_name="StdMaps_Map_2" is_reference="true"/>
+      </input>
+      <input name="StdMaps_Amt_2" value="0">
+        <attachment target_name="StdMaps_Amt_2"/>
+      </input>
+      <input name="StdMaps_On__3" value="true">
+        <attachment target_name="StdMaps_On__3"/>
+      </input>
+      <input name="StdMaps_Map_3" value="">
+        <attachment target_name="StdMaps_Map_3" is_reference="true"/>
+      </input>
+      <input name="StdMaps_Amt_3" value="0">
+        <attachment target_name="StdMaps_Amt_3"/>
+      </input>
+      <input name="StdMaps_On__4" value="true">
+        <attachment target_name="StdMaps_On__4"/>
+      </input>
+      <input name="StdMaps_Map_4" value="">
+        <attachment target_name="StdMaps_Map_4" is_reference="true"/>
+      </input>
+      <input name="StdMaps_Amt_4" value="0">
+        <attachment target_name="StdMaps_Amt_4"/>
+      </input>
+      <input name="StdMaps_On__5" value="true">
+        <attachment target_name="StdMaps_On__5"/>
+      </input>
+      <input name="StdMaps_Map_5" value="">
+        <attachment target_name="StdMaps_Map_5" is_reference="true"/>
+      </input>
+      <input name="StdMaps_Amt_5" value="0">
+        <attachment target_name="StdMaps_Amt_5"/>
+      </input>
+      <input name="StdMaps_On__6" value="true">
+        <attachment target_name="StdMaps_On__6"/>
+      </input>
+      <input name="StdMaps_Map_6" value="">
+        <attachment target_name="StdMaps_Map_6" is_reference="true"/>
+      </input>
+      <input name="StdMaps_Amt_6" value="0">
+        <attachment target_name="StdMaps_Amt_6"/>
+      </input>
+      <input name="StdMaps_On__7" value="true">
+        <attachment target_name="StdMaps_On__7"/>
+      </input>
+      <input name="StdMaps_Map_7" value="">
+        <attachment target_name="StdMaps_Map_7" is_reference="true"/>
+      </input>
+      <input name="StdMaps_Amt_7" value="0">
+        <attachment target_name="StdMaps_Amt_7"/>
+      </input>
+      <input name="StdMaps_On__8" value="true">
+        <attachment target_name="StdMaps_On__8"/>
+      </input>
+      <input name="StdMaps_Map_8" value="">
+        <attachment target_name="StdMaps_Map_8" is_reference="true"/>
+      </input>
+      <input name="StdMaps_Amt_8" value="0">
+        <attachment target_name="StdMaps_Amt_8"/>
+      </input>
+      <input name="StdMaps_On__9" value="true">
+        <attachment target_name="StdMaps_On__9"/>
+      </input>
+      <input name="StdMaps_Map_9" value="">
+        <attachment target_name="StdMaps_Map_9" is_reference="true"/>
+      </input>
+      <input name="StdMaps_Amt_9" value="0">
+        <attachment target_name="StdMaps_Amt_9"/>
+      </input>
+      <input name="StdMaps_On__10" value="true">
+        <attachment target_name="StdMaps_On__10"/>
+      </input>
+      <input name="StdMaps_Map_10" value="">
+        <attachment target_name="StdMaps_Map_10" is_reference="true"/>
+      </input>
+      <input name="StdMaps_Amt_10" value="0">
+        <attachment target_name="StdMaps_Amt_10"/>
+      </input>
+      <input name="StdMaps_ADTextureLock" value="true">
+        <attachment target_name="StdMaps_ADTextureLock"/>
+      </input>
+      <output name="result">
+        <attachment target_name="result"/>
+      </output>
+    </node>
+
+    <node name="Conversion_color_to_floats_1" class="Conversion_color_to_floats">
+      <input name="color" value="1 1 1 1">
+        <attachment target_name="result" target_node="max_StandardBlinnMaterial_1"/>
+      </input>
+      <output name="r"/>
+      <output name="g"/>
+      <output name="b"/>
+      <output name="a"/>
+    </node>
+
+    <node name="Math_float_subtract_1" class="Math_float_subtract">
+      <input name="left" value="1"/>
+      <input name="right" value="0">
+        <attachment target_name="a" target_node="Conversion_color_to_floats_1"/>
+      </input>
+      <output name="result">
+        <attachment target_name="transparency"/>
+      </output>
+    </node>
+
+  </phenomenon>
+
+  <phenomenon name="max_Bitmap_Phen">
+    <input name="ClipU" type="float" display_name="ClipU" value="0">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="ClipU"/>
+      </annotation>
+    </input>
+    <input name="ClipV" type="float" display_name="ClipV" value="0">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="ClipV"/>
+      </annotation>
+    </input>
+    <input name="ClipW" type="float" display_name="ClipW" value="1">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="ClipW"/>
+      </annotation>
+    </input>
+    <input name="ClipH" type="float" display_name="ClipH" value="1">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="ClipH"/>
+      </annotation>
+    </input>
+    <input name="Apply" type="const bool" display_name="Apply" value="false">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="Apply"/>
+      </annotation>
+    </input>
+    <input name="CropPlace" type="const bool" display_name="CropPlace" value="false">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="CropPlace"/>
+      </annotation>
+    </input>
+    <input name="MonoOutput" type="const int" display_name="MonoOutput" value="0">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="MonoOutput"/>
+      </annotation>
+    </input>
+    <input name="RGBOutput" type="const int" display_name="RGBOutput" value="0">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="RGBOutput"/>
+      </annotation>
+    </input>
+    <input name="AlphaSource" type="const int" display_name="AlphaSource" value="0">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="AlphaSource"/>
+      </annotation>
+    </input>
+    <input name="PreMultAlpha" type="const bool" display_name="PreMultAlpha" value="true">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="PreMultAlpha"/>
+      </annotation>
+    </input>
+    <input name="Gamma" type="float" display_name="Gamma" value="1">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="Gamma"/>
+      </annotation>
+    </input>
+    <input name="Bitmap" type="texture2D" display_name="Bitmap" value="brickwall.dds">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="Bitmap"/>
+      </annotation>
+    </input>
+    <input name="Output" type="Shader" display_name="Output">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="Output"/>
+      </annotation>
+    </input>
+    <input name="MapSlotType" type="const int" display_name="MapSlotType" value="0">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="MapSlotType"/>
+      </annotation>
+    </input>
+    <input name="EnvType" type="const int" display_name="EnvType" value="4">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="EnvType"/>
+      </annotation>
+    </input>
+    <input name="MapChannel" type="int" display_name="MapChannel" value="0">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="MapChannel"/>
+      </annotation>
+    </input>
+    <input name="UVWSource" type="const int" display_name="UVWSource" value="0">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="UVWSource"/>
+      </annotation>
+    </input>
+    <input name="ShowMapOnBack" type="const bool" display_name="ShowMapOnBack" value="true">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="ShowMapOnBack"/>
+      </annotation>
+    </input>
+    <input name="UOffset" type="float" display_name="UOffset" value="0">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="UOffset"/>
+      </annotation>
+    </input>
+    <input name="UScale" type="float" display_name="UScale" value="1">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="UScale"/>
+      </annotation>
+    </input>
+    <input name="UWrap" type="const bool" display_name="UWrap" value="true">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="UWrap"/>
+      </annotation>
+    </input>
+    <input name="UMirror" type="const bool" display_name="UMirror" value="false">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="UMirror"/>
+      </annotation>
+    </input>
+    <input name="VOffset" type="float" display_name="VOffset" value="0">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="VOffset"/>
+      </annotation>
+    </input>
+    <input name="VScale" type="float" display_name="VScale" value="1">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="VScale"/>
+      </annotation>
+    </input>
+    <input name="VWrap" type="const bool" display_name="VWrap" value="true">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="VWrap"/>
+      </annotation>
+    </input>
+    <input name="VMirror" type="const bool" display_name="VMirror" value="false">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="VMirror"/>
+      </annotation>
+    </input>
+    <input name="UAngle" type="float" display_name="UAngle" value="0">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="UAngle"/>
+      </annotation>
+    </input>
+    <input name="VAngle" type="float" display_name="VAngle" value="0">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="VAngle"/>
+      </annotation>
+    </input>
+    <input name="WAngle" type="float" display_name="WAngle" value="0">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="WAngle"/>
+      </annotation>
+    </input>
+    <input name="UVAxis" type="int" display_name="UVAxis" value="0">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="UVAxis"/>
+      </annotation>
+    </input>
+    <input name="Clip" type="const bool" display_name="Clip" value="false">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="Clip"/>
+      </annotation>
+    </input>
+    <input name="Blur" type="float" display_name="Blur" value="1">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="Blur"/>
+      </annotation>
+    </input>
+    <input name="BlurOffset" type="float" display_name="BlurOffset" value="0">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="BlurOffset"/>
+      </annotation>
+    </input>
+    <input name="RealWorldMapSize" type="const bool" display_name="RealWorldMapSize" value="true">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="RealWorldMapSize"/>
+      </annotation>
+    </input>
+    <input name="LookupDirection" type="float3">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="Lookup direction"/>
+      </annotation>
+    </input>
+    <output name="result" type="Color" display_name="result">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="result"/>
+      </annotation>
+    </output>
+    <output name="mono_result" type="float" display_name="mono_result">
+      <annotation name="display_name">
+        <annotation_member name="name" type="String" value="mono_result"/>
+      </annotation>
+    </output>
+
+    <node name="hlsl_base_UVGenerator_1" class="hlsl_base_UVGenerator">
+      <input name="MapSlotType" value="0">
+        <attachment target_name="MapSlotType"/>
+      </input>
+      <input name="EnvType" value="4">
+        <attachment target_name="EnvType"/>
+      </input>
+      <input name="MapChannel" value="0">
+        <attachment target_name="MapChannel"/>
+      </input>
+      <input name="UVWSource" value="0">
+        <attachment target_name="UVWSource"/>
+      </input>
+      <input name="ShowMapOnBack" value="true">
+        <attachment target_name="ShowMapOnBack"/>
+      </input>
+      <input name="UOffset" value="0">
+        <attachment target_name="UOffset"/>
+      </input>
+      <input name="UScale" value="1">
+        <attachment target_name="UScale"/>
+      </input>
+      <input name="UWrap" value="true">
+        <attachment target_name="UWrap"/>
+      </input>
+      <input name="UMirror" value="false">
+        <attachment target_name="UMirror"/>
+      </input>
+      <input name="VOffset" value="0">
+        <attachment target_name="VOffset"/>
+      </input>
+      <input name="VScale" value="1">
+        <attachment target_name="VScale"/>
+      </input>
+      <input name="VWrap" value="true">
+        <attachment target_name="VWrap"/>
+      </input>
+      <input name="VMirror" value="false">
+        <attachment target_name="VMirror"/>
+      </input>
+      <input name="UAngle" value="0">
+        <attachment target_name="UAngle"/>
+      </input>
+      <input name="VAngle" value="0">
+        <attachment target_name="VAngle"/>
+      </input>
+      <input name="WAngle" value="0">
+        <attachment target_name="WAngle"/>
+      </input>
+      <input name="UVAxis" value="0">
+        <attachment target_name="UVAxis"/>
+      </input>
+      <input name="Clip" value="false">
+        <attachment target_name="Clip"/>
+      </input>
+      <input name="Blur" value="1">
+        <attachment target_name="Blur"/>
+      </input>
+      <input name="BlurOffset" value="0">
+        <attachment target_name="BlurOffset"/>
+      </input>
+      <input name="LookupDirection">
+        <attachment target_name="LookupDirection"/>
+      </input>
+      <input name="RealWorldMapSize" value="true">
+        <attachment target_name="RealWorldMapSize"/>
+      </input>
+      <input name="Noise"/>
+      <output name="result"/>
+      <output name="duv"/>
+      <output name="d"/>
+      <output name="dPdu"/>
+      <output name="dPdv"/>
+    </node>
+
+    <node name="hlsl_Bitmap_EvalColor_1" class="hlsl_Bitmap_EvalColor">
+      <input name="ClipU" value="0">
+        <attachment target_name="ClipU"/>
+      </input>
+      <input name="ClipV" value="0">
+        <attachment target_name="ClipV"/>
+      </input>
+      <input name="ClipW" value="1">
+        <attachment target_name="ClipW"/>
+      </input>
+      <input name="ClipH" value="1">
+        <attachment target_name="ClipH"/>
+      </input>
+      <input name="Apply" value="false">
+        <attachment target_name="Apply"/>
+      </input>
+      <input name="CropPlace" value="false">
+        <attachment target_name="CropPlace"/>
+      </input>
+      <input name="MonoOutput" value="0">
+        <attachment target_name="MonoOutput"/>
+      </input>
+      <input name="RGBOutput" value="0">
+        <attachment target_name="RGBOutput"/>
+      </input>
+      <input name="AlphaSource" value="0">
+        <attachment target_name="AlphaSource"/>
+      </input>
+      <input name="PreMultAlpha" value="true">
+        <attachment target_name="PreMultAlpha"/>
+      </input>
+      <input name="Gamma" value="1">
+        <attachment target_name="Gamma"/>
+      </input>
+      <input name="Bitmap" value="brickwall.dds">
+        <attachment target_name="Bitmap"/>
+      </input>
+      <input name="Coords">
+        <attachment target_name="result" target_node="hlsl_base_UVGenerator_1" is_reference="true"/>
+      </input>
+      <input name="Output">
+        <attachment target_name="Output" is_reference="true"/>
+      </input>
+      <output name="result">
+        <attachment target_name="result"/>
+      </output>
+      <output name="mono_result">
+        <attachment target_name="mono_result"/>
+      </output>
+    </node>
+
+  </phenomenon>
+
+  <node name="max_Bitmap_Phen_2" class="max_Bitmap_Phen">
+    <input name="ClipU" value="0"/>
+    <input name="ClipV" value="0"/>
+    <input name="ClipW" value="1"/>
+    <input name="ClipH" value="1"/>
+    <input name="Apply" value="false"/>
+    <input name="CropPlace" value="false"/>
+    <input name="MonoOutput" value="0"/>
+    <input name="RGBOutput" value="0"/>
+    <input name="AlphaSource" value="0"/>
+    <input name="PreMultAlpha" value="true"/>
+    <input name="Gamma" value="1"/>
+    <input name="Bitmap" value="brickwall.dds"/>
+    <input name="Output"/>
+    <input name="MapSlotType" value="0"/>
+    <input name="EnvType" value="4"/>
+    <input name="MapChannel" value="0"/>
+    <input name="UVWSource" value="0"/>
+    <input name="ShowMapOnBack" value="true"/>
+    <input name="UOffset" value="0"/>
+    <input name="UScale" value="1"/>
+    <input name="UWrap" value="true"/>
+    <input name="UMirror" value="false"/>
+    <input name="VOffset" value="0"/>
+    <input name="VScale" value="1"/>
+    <input name="VWrap" value="true"/>
+    <input name="VMirror" value="false"/>
+    <input name="UAngle" value="0"/>
+    <input name="VAngle" value="0"/>
+    <input name="WAngle" value="0"/>
+    <input name="UVAxis" value="0"/>
+    <input name="Clip" value="true"/>
+    <input name="Blur" value="1"/>
+    <input name="BlurOffset" value="0"/>
+    <input name="RealWorldMapSize" value="false"/>
+    <input name="LookupDirection"/>
+    <output name="result"/>
+    <output name="mono_result"/>
+  </node>
+
+  <node name="max_StandardBlinnMaterial_Phen_1" class="max_StandardBlinnMaterial_Phen">
+    <input name="Parameters_Ambient" value="0.588235 0.588235 0.588235 1"/>
+    <input name="Parameters_Diffuse" value="0.588235 0.588235 0.588235 1"/>
+    <input name="Parameters_Specular" value="0.9 0.9 0.9 1"/>
+    <input name="Parameters_ADLock" value="true"/>
+    <input name="Parameters_DSLock" value="false"/>
+    <input name="Parameters_UseSelfIllumColor" value="false"/>
+    <input name="Parameters_SelfIllumAmount" value="0"/>
+    <input name="Parameters_SelfIllumColor" value="0 0 0 0"/>
+    <input name="Parameters_SpecularLevel" value="0"/>
+    <input name="Parameters_Glossiness" value="0.1"/>
+    <input name="Parameters_Soften" value="0.1"/>
+    <input name="StdParameters_Wire" value="false"/>
+    <input name="StdParameters_TwoSided" value="false"/>
+    <input name="StdParameters_FaceMap" value="false"/>
+    <input name="StdParameters_Faceted" value="false"/>
+    <input name="StdExtendedParameters_OpacityType" value="0"/>
+    <input name="StdExtendedParameters_Opacity" value="1"/>
+    <input name="StdExtendedParameters_FilterColor" value="0.5 0.5 0.5 0.5"/>
+    <input name="StdExtendedParameters_FilterMap" value="default.dds"/>
+    <input name="StdExtendedParameters_OpacityFallOffType" value="0"/>
+    <input name="StdExtendedParameters_OpacityFallOff" value="0"/>
+    <input name="StdExtendedParameters_Ior" value="1.5"/>
+    <input name="StdExtendedParameters_WireSize" value="1"/>
+    <input name="StdExtendedParameters_WireUnits" value="0"/>
+    <input name="StdExtendedParameters_ApplyReflectionDimming" value="false"/>
+    <input name="StdExtendedParameters_DimLevel" value="0"/>
+    <input name="StdExtendedParameters_ReflectionLevel" value="3"/>
+    <input name="StdMaps_On__0" value="false"/>
+    <input name="StdMaps_Map_0" value=""/>
+    <input name="StdMaps_Amt_0" value="0"/>
+    <input name="StdMaps_On__1" value="true"/>
+    <input name="StdMaps_Map_1" value="">
+      <attachment target_name="result" target_node="max_Bitmap_Phen_2" is_reference="true"/>
+    </input>
+    <input name="StdMaps_Amt_1" value="0"/>
+    <input name="StdMaps_On__2" value="false"/>
+    <input name="StdMaps_Map_2" value=""/>
+    <input name="StdMaps_Amt_2" value="0"/>
+    <input name="StdMaps_On__3" value="false"/>
+    <input name="StdMaps_Map_3" value=""/>
+    <input name="StdMaps_Amt_3" value="0"/>
+    <input name="StdMaps_On__4" value="false"/>
+    <input name="StdMaps_Map_4" value=""/>
+    <input name="StdMaps_Amt_4" value="0"/>
+    <input name="StdMaps_On__5" value="false"/>
+    <input name="StdMaps_Map_5" value=""/>
+    <input name="StdMaps_Amt_5" value="0"/>
+    <input name="StdMaps_On__6" value="false"/>
+    <input name="StdMaps_Map_6" value=""/>
+    <input name="StdMaps_Amt_6" value="0"/>
+    <input name="StdMaps_On__7" value="false"/>
+    <input name="StdMaps_Map_7" value=""/>
+    <input name="StdMaps_Amt_7" value="0"/>
+    <input name="StdMaps_On__8" value="false"/>
+    <input name="StdMaps_Map_8" value=""/>
+    <input name="StdMaps_Amt_8" value="0"/>
+    <input name="StdMaps_On__9" value="false"/>
+    <input name="StdMaps_Map_9" value=""/>
+    <input name="StdMaps_Amt_9" value="0"/>
+    <input name="StdMaps_On__10" value="false"/>
+    <input name="StdMaps_Map_10" value=""/>
+    <input name="StdMaps_Amt_10" value="0"/>
+    <input name="StdMaps_ADTextureLock" value="true"/>
+    <output name="result"/>
+    <output name="transparency"/>
+  </node>
+
+</root>
